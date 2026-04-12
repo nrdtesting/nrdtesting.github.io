@@ -9,7 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 </head>
-<body class="chapter-page">
+<body class="chapter-page" data-chapter="3">
+  <!-- Floating Particles Background -->
+  <div class="particles-bg"></div>
+  
   <!-- Navigation -->
   <nav class="chapter-nav">
     <a href="thesis1.html" class="nav-back">
@@ -29,7 +32,7 @@
         <span class="label-text">Chapter Three</span>
       </div>
       <h1 class="chapter-main-title">Research Methodology</h1>
-      
+
       <div class="chapter-navigation-pills">
         <a href="chapter1.html" class="pill">Chapter 1</a>
         <a href="chapter2.html" class="pill">Chapter 2</a>
@@ -44,7 +47,7 @@
       <aside class="chapter-outline">
         <h3 class="outline-title">In This Chapter</h3>
         <nav class="outline-nav">
-          <a href="#design" class="outline-link">Research Design</a>
+          <a href="#design" class="outline-link active">Research Design</a>
           <a href="#data" class="outline-link">Data & Variables</a>
           <a href="#methods" class="outline-link">Methods of Analysis</a>
           <a href="#procedures" class="outline-link">Research Procedures</a>
@@ -55,10 +58,10 @@
         <section id="design" class="chapter-section">
           <h2 class="chapter-section-title">Research Design</h2>
           <div class="section-content">
-            <p class="placeholder-text">
-              The study will utilize a quantitative  research approach using Static and Dynamic Panel Data Regression. The approach is selected to capture the complexities of the regional labor market by accounting for both cross-sectional differences among the regions in the Philippines and the time-series fluctuations in the years 2012 to 2024. This study follows the framework of normative economics by addressing the policy-oriented question of whether the government “should” increase public capital investment to stimulate private sector growth (Hurley, 2000).
+            <p>
+              The study will utilize a quantitative research approach using <strong>Static and Dynamic Panel Data Regression</strong>. The approach is selected to capture the complexities of the regional labor market by accounting for both cross-sectional differences among the regions in the Philippines and the time-series fluctuations in the years 2012 to 2024. This study follows the framework of normative economics by addressing the policy-oriented question of whether the government "should" increase public capital investment to stimulate private sector growth (Hurley, 2000).
             </p>
-            <p class="placeholder-text">
+            <p>
               The researchers aim is beyond simple correlation, we seek to evaluate the elasticity of road density changes, focusing on finding the numerical measure of how much non-agricultural private sector regional employment responds to a development in road infrastructure.
             </p>
           </div>
@@ -67,11 +70,11 @@
         <section id="data" class="chapter-section">
           <h2 class="chapter-section-title">Data Sources and Variables</h2>
           <div class="section-content">
-            <p class="placeholder-text">
-              In this study, aggregated employment, economic output, transportation infrastructure and sociodemographic data across the Philippine regions were collected to develop the necessary dataset for the research. The data were retrieved from publicly available government websites, specifically the Philippine Statistics Authority (PSA) and Department of Public Works and Highways (DPWH). The study utilized the PSA OpenSTAT Database for most of the variables. Table 1 contains the comprehensive summary and definitions of all variables.
+            <p>
+              In this study, aggregated employment, economic output, transportation infrastructure and sociodemographic data across the Philippine regions were collected to develop the necessary dataset for the research. The data were retrieved from publicly available government websites, specifically the <strong>Philippine Statistics Authority (PSA)</strong> and <strong>Department of Public Works and Highways (DPWH)</strong>. The study utilized the <strong>PSA OpenSTAT Database</strong> for most of the variables. Table 1 contains the comprehensive summary and definitions of all variables.
             </p>
-            <p class="placeholder-text">
-              The impact of national road density on non-agricultural private sector employment will be analyzed using panel dataset from various administrative and survey based repositories of the Philippine government. 16 administrative regions of the Philippines will be used over a 13-year period providing 208 observations (N=16, T=13). The collected data also includes the shifts in national infrastructure spending across multiple administrations and development plans such as “Build, Build, Build”, “Build Better More” and Road Improvement and Institutional Development (RIID). For geographic units, the researchers have selected Administrative Regions as the primary unit of analysis. The reason behind the selection is not random, given that employment (non-agricultural private sector) and infrastructure (national road density), as well as other socioeconomic control variables are not available in finer spatial resolutions (e.g. districts, cities, or provinces) across the country for all years within the study period.
+            <p>
+              The impact of national road density on non-agricultural private sector employment will be analyzed using panel dataset from various administrative and survey based repositories of the Philippine government. 16 administrative regions of the Philippines will be used over a 13-year period providing 208 observations (N=16, T=13). The collected data also includes the shifts in national infrastructure spending across multiple administrations and development plans such as <strong>"Build, Build, Build"</strong>, <strong>"Build Better More"</strong> and <strong>Road Improvement and Institutional Development (RIID)</strong>. For geographic units, the researchers have selected Administrative Regions as the primary unit of analysis. The reason behind the selection is not random, given that employment (non-agricultural private sector) and infrastructure (national road density), as well as other socioeconomic control variables are not available in finer spatial resolutions (e.g. districts, cities, or provinces) across the country for all years within the study period.
             </p>
           </div>
         </section>
@@ -79,8 +82,8 @@
         <section id="methods" class="chapter-section">
           <h2 class="chapter-section-title">Methods of Data Analysis</h2>
           <div class="section-content">
-            <p class="placeholder-text">
-              Following Chakrabarti (2018), to estimate the following effect of national road density (R) on private sector (non-agricultural) employment (E) in the Philippines, the study conducted a static and dynamic panel data approach. 
+            <p>
+              Following Chakrabarti (2018), to estimate the following effect of national road density (R) on private sector (non-agricultural) employment (E) in the Philippines, the study conducted a static and dynamic panel data approach.
             </p>
           </div>
         </section>
@@ -88,8 +91,8 @@
         <section id="procedures" class="chapter-section">
           <h2 class="chapter-section-title">Research Procedures</h2>
           <div class="section-content">
-            <p class="placeholder-text">
-              The collected data will undergo three different static modes: pooled ordinary least squares (OLS), fixed-effects, and random effects regression. The following definitions are extracted from Gujarati’s Basic Econometrics (2025). The Pooled Ordinary Least Squares (OLS) is an approach where all observations are pooled together, neglecting the panel cross section and time-series nature of our data. Pooled OLS will not be suitable in the study since our scope includes a vast number of observations that vary across regions and time. Fixed-effects, or within group estimator, enables the observations of variables by assuming that the entities arise from the population itself. It estimates an OLS regression on such mean corrected or “de-meaned” values. Fixed-Effects (FE) runs by filtering out time invariant variables such as the difference in topography (mountainous regions) or an installation of a new major airport that separates or makes employment level differ from each other on average numerical value. FE focuses strictly on how changes in road density (R) lead to changes in employment (E) within regions. The last static model is the random effects (RE) model which estimates for both time varying factors and  time-invariant variables. The RE model assumes that variation across entities are random and uncorrelated with the predictor or independent variable included in the model (Prinston, 2007). It assumes that intercept values are randomly drawn from a much bigger population.
+            <p>
+              The collected data will undergo three different static modes: <strong>pooled ordinary least squares (OLS)</strong>, <strong>fixed-effects</strong>, and <strong>random effects regression</strong>. The following definitions are extracted from Gujarati's Basic Econometrics (2025). The <strong>Pooled Ordinary Least Squares (OLS)</strong> is an approach where all observations are pooled together, neglecting the panel cross section and time-series nature of our data. Pooled OLS will not be suitable in the study since our scope includes a vast number of observations that vary across regions and time. <strong>Fixed-effects</strong>, or within group estimator, enables the observations of variables by assuming that the entities arise from the population itself. It estimates an <strong>OLS</strong> regression on such mean corrected or "de-meaned" values. <strong>Fixed-Effects (FE)</strong> runs by filtering out time invariant variables such as the difference in topography (mountainous regions) or an installation of a new major airport that separates or makes employment level differ from each other on average numerical value. <strong>FE</strong> focuses strictly on how changes in road density (R) lead to changes in employment (E) within regions. The last static model is the <strong>random effects (RE) model</strong> which estimates for both time varying factors and time-invariant variables. The <strong>RE model</strong> assumes that variation across entities are random and uncorrelated with the predictor or independent variable included in the model (Prinston, 2007). It assumes that intercept values are randomly drawn from a much bigger population.
             </p>
           </div>
         </section>
