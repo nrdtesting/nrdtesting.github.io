@@ -221,10 +221,10 @@ img {
 }
 
 .logo-top-left {
-  width: 70px;
+  width: 100px;
   height: auto;
-  filter: brightness(0) invert(1);
-  opacity: 0.9;
+  opacity: 1;
+  filter: none;
 }
 
 .header-meta {
@@ -1223,4 +1223,62 @@ img {
   .chapter-content {
     padding: 2rem 1rem;
   }
+}
+
+.chapter-article p {
+  text-align: justify;
+}
+
+.chapter-article p {
+  text-align: justify;
+  text-indent: 2em;
+}
+
+.thesis-proponents {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-gold-dark);
+  font-weight: 500;
+}
+
+.thesis-header {
+  background:
+    radial-gradient(circle at top right, rgba(212, 175, 55, 0.12), transparent 25%),
+    linear-gradient(135deg, #f9fafb, #ffffff);
+}
+
+.content-section {
+  position: relative;
+}
+
+.content-section::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -20px;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.chapter-section-title,
+.section-title {
+  border-bottom: 2px solid var(--color-gold);
+  box-shadow: inset 0 -1px 0 rgba(212, 175, 55, 0.2);
+}
+
+.proposal-section .section-header .section-title {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.06);
+}
+
+.proposal-section .section-header .section-number {
+  color: var(--color-gold);
+  opacity: 1;
+  font-size: 3rem;
+  font-weight: 700;
+  text-shadow: 0 0 18px rgba(212, 175, 55, 0.18);
 }
