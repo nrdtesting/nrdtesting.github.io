@@ -79,7 +79,8 @@
   font-family: var(--font-display);
   font-size: 2.5rem;
   font-weight: 700;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
+  padding-left: 10px;
   box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3);
 }
 
@@ -876,11 +877,23 @@
   overflow: hidden;
 }
 
+/* ===================================
+   FLOATING BLUR CIRCLES ONLY
+   =================================== */
+
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
 .ambient-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(75px);
-  opacity: 0.45;
+  filter: blur(85px);
+  opacity: 0.42;
   mix-blend-mode: screen;
   will-change: transform;
 }
@@ -888,28 +901,25 @@
 .orb-1 {
   width: 320px;
   height: 320px;
-  background: rgba(255, 215, 0, 0.65);
+  background: rgba(255, 215, 0, 0.62);
   top: 0;
   left: 0;
-  animation: float1 4.5s ease-in-out infinite alternate;
 }
 
 .orb-2 {
-  width: 360px;
-  height: 360px;
-  background: rgba(120, 80, 255, 0.42);
-  top: 30%;
+  width: 380px;
+  height: 380px;
+  background: rgba(120, 80, 255, 0.38);
+  top: 28%;
   right: 0;
-  animation: float2 5.5s ease-in-out infinite alternate;
 }
 
 .orb-3 {
   width: 280px;
   height: 280px;
-  background: rgba(0, 170, 255, 0.35);
+  background: rgba(0, 170, 255, 0.32);
   bottom: 0;
   left: 30%;
-  animation: float3 4.8s ease-in-out infinite alternate;
 }
 
 @keyframes float1 {
