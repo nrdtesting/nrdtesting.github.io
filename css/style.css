@@ -1,1 +1,129 @@
+/* ===================================
+   GLOBAL / SHARED STYLES
+   =================================== */
 
+:root {
+  --color-bg: #0a0a0a;
+  --color-bg-light: #1a1a1a;
+  --color-surface: #ffffff;
+  --color-surface-dark: #0f0f0f;
+  --color-text: #ffffff;
+  --color-text-muted: #a3a3a3;
+  --color-text-inverse: #0a0a0a;
+
+  --color-gold: #d4af37;
+  --color-gold-light: #f5e6a8;
+  --color-gold-dark: #8b7500;
+  --color-gold-glow: rgba(212, 175, 55, 0.3);
+
+  --chapter1-primary: #667eea;
+  --chapter1-secondary: #764ba2;
+  --chapter2-primary: #f093fb;
+  --chapter2-secondary: #f5576c;
+  --chapter3-primary: #4facfe;
+  --chapter3-secondary: #00f2fe;
+
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.2);
+  --shadow-gold: 0 4px 20px var(--color-gold-glow);
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2.5rem;
+  --spacing-xl: 4rem;
+
+  --font-display: "Libre Baskerville", Georgia, serif;
+  --font-body: "DM Sans", -apple-system, system-ui, sans-serif;
+
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
+  --transition-slow: 0.4s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-base);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-text-inverse);
+}
+
+/* shared back button */
+.nav-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-inverse);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  transition: var(--transition-base);
+}
+
+.nav-back:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* shared buttons */
+.open-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold));
+  color: var(--color-text-inverse);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 100px;
+  transition: all var(--transition-base);
+}
+
+.open-btn svg {
+  transition: transform var(--transition-base);
+}
