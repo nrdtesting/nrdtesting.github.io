@@ -4,20 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thesis Proposals – JJ</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/landing.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 </head>
 <body class="landing-page">
+
+  <div class="ambient-bg">
+  <span class="ambient-orb orb-1"></span>
+  <span class="ambient-orb orb-2"></span>
+  <span class="ambient-orb orb-3"></span>
+</div>
+
   <!-- Interactive Wave Canvas -->
   <canvas id="waveCanvas"></canvas>
+
+
   
-  <!-- Intro Animation -->
+  <!-- EPIC Intro Animation with Lightning -->
   <div class="intro-overlay" id="introOverlay">
     <div class="intro-content">
-      <div class="intro-logo">JJ</div>
+      <div class="intro-logo-container">
+        <div class="intro-logo">JJ</div>
+        <!-- Lightning bolts -->
+        <div class="lightning lightning-1"></div>
+        <div class="lightning lightning-2"></div>
+        <div class="lightning lightning-3"></div>
+        <div class="lightning lightning-4"></div>
+        <!-- Electric particles -->
+        <div class="electric-particles"></div>
+      </div>
       <div class="intro-tagline">Research Portfolio</div>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
     </div>
   </div>
 
@@ -28,25 +50,23 @@
   <header class="landing-header">
     <div class="header-container">
       <div class="top-bar">
-        <img src="images/puplogo.png" alt="PUP Logo" class="logo-top-left" />
+        <img src="images/puplogo.png" alt="PUP Logo" class="logo-top-left" onerror="this.style.display='none'" />
         <div class="header-meta">
           <span class="year">2024–2025</span>
         </div>
       </div>
       
-      <div class="hero-content">
-        <div class="label-badge">Undergraduate Research</div>
-        <h1 class="hero-title">
-          <span class="title-line">Thesis</span>
-          <span class="title-line accent-line">Proposals</span>
-        </h1>
-        <p class="hero-description">
-          Ang website na ito ay testing project lang ni JJ. Masaya akong i-share 
-          ang mga ganap at resulta ng thesis namin dito.
-        </p>
-      </div>
-    </div>
-  </header>
+  <div class="hero-content">
+    <div class="label-badge">Undergraduate Research</div>
+    <h1 class="hero-title">
+      <span class="title-line">Thesis</span>
+      <span class="title-line accent-line">Proposals</span>
+  </h1>
+  <p class="hero-description">
+    Ang website na ito ay testing project lang ni JJ. Masaya akong i-share 
+    ang mga ganap at resulta ng thesis namin dito.
+  </p>
+</div>
 
   <!-- University Info Section -->
   <section class="university-info">
@@ -75,8 +95,8 @@
         </div>
         <div class="info-content">
           <h3 class="info-title">Research Team</h3>
-          <p class="info-text">Binay, Dequiña, Manuel, Pabiona, Sangalang</p>
-          <p class="info-detail">Bachelor of Science in Economics</p>
+          <p class="info-text">Binay, Keith • Dequiña, Justine • Manuel, Arch Jude • Pabiona, Justine • Sangalang, Elijah</p>
+          <p class="info-detail">Bachelor of Science in Economics '27</p>
         </div>
       </div>
     </div>
@@ -147,6 +167,53 @@
     </div>
   </main>
 
+<section class="quick-links-section">
+  <div class="quick-links-header">
+    <h2>Quick Links</h2>
+    <p>Open different sections of the academic portfolio</p>
+  </div>
+
+  <div class="quick-links-grid">
+    <a href="about.html" class="quick-link-card">
+      <div class="quick-link-icon">👤</div>
+      <div class="quick-link-content">
+        <h3>About the Author</h3>
+        <p>Learn more about the researcher</p>
+      </div>
+      <span class="quick-link-arrow">→</span>
+    </a>
+
+    <a href="research.html" class="quick-link-card">
+      <div class="quick-link-icon">📊</div>
+      <div class="quick-link-content">
+        <h3>Research Metrics</h3>
+        <p>View data and statistics</p>
+      </div>
+      <span class="quick-link-arrow">→</span>
+    </a>
+
+    <a href="references.html" class="quick-link-card">
+      <div class="quick-link-icon">📚</div>
+      <div class="quick-link-content">
+        <h3>References</h3>
+        <p>Bibliography and sources</p>
+      </div>
+      <span class="quick-link-arrow">→</span>
+    </a>
+
+    <a href="reviews.html" class="quick-link-card">
+      <div class="quick-link-icon">⭐</div>
+      <div class="quick-link-content">
+        <h3>Reviews & Recognition</h3>
+        <p>Feedback, comments, and academic recognition</p>
+      </div>
+      <span class="quick-link-arrow">→</span>
+    </a>
+  </div>
+</section>
+      
+
+
   <!-- Footer with Social Links -->
   <footer class="landing-footer">
     <div class="footer-container">
@@ -199,6 +266,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
