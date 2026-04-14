@@ -1,0 +1,371 @@
+/* ===================================
+   THESIS DETAIL PAGE
+   =================================== */
+
+.thesis-page {
+  background: var(--color-surface);
+  color: var(--color-text-inverse);
+}
+
+.thesis-nav {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 1rem 1.5rem;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-progress {
+  flex: 1;
+  max-width: 200px;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 100px;
+  overflow: hidden;
+  margin-left: 2rem;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold));
+  width: 0%;
+  transition: width 0.1s ease;
+}
+
+.thesis-header {
+  background: linear-gradient(135deg, #f9fafb, #ffffff);
+  padding: 4rem 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.thesis-header-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.header-label {
+  font-size: 0.875rem;
+  color: var(--color-gold-dark);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.thesis-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.25;
+  margin-bottom: 1rem;
+  color: #0a0a0a;
+}
+
+.thesis-proponents {
+  font-size: 1rem;
+  color: #525252;
+  margin-bottom: 1rem;
+}
+
+.thesis-subtitle {
+  font-size: 1.25rem;
+  color: #525252;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.thesis-meta {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.meta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.meta-label {
+  font-size: 0.75rem;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.meta-value {
+  font-size: 0.95rem;
+  color: #0a0a0a;
+  font-weight: 500;
+}
+
+.status-active {
+  color: var(--color-success);
+}
+
+.thesis-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 4rem;
+}
+
+.thesis-sidebar {
+  position: relative;
+}
+
+.sidebar-sticky {
+  position: sticky;
+  top: 6rem;
+}
+
+.sidebar-title {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #525252;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.sidebar-link {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  color: #525252;
+  font-size: 0.95rem;
+  transition: var(--transition-base);
+  border-left: 3px solid transparent;
+}
+
+.sidebar-link:hover {
+  background: rgba(0, 0, 0, 0.03);
+  color: #0a0a0a;
+}
+
+.sidebar-link.active {
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--color-gold-dark);
+  border-left-color: var(--color-gold);
+  font-weight: 500;
+}
+
+.sidebar-info {
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.info-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #737373;
+  margin-bottom: 0.5rem;
+}
+
+.info-text {
+  font-size: 0.875rem;
+  color: #525252;
+  line-height: 1.6;
+}
+
+.thesis-article {
+  max-width: 800px;
+}
+
+.content-section {
+  position: relative;
+  margin-bottom: 4rem;
+}
+
+.section-marker {
+  position: absolute;
+  left: -3rem;
+  top: 0;
+}
+
+.marker-number {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-gold);
+  opacity: 0.4;
+  font-weight: 700;
+}
+
+.content-section .section-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #0a0a0a;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--color-gold);
+  display: inline-block;
+}
+
+.reading-content {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: #262626;
+}
+
+.reading-content p {
+  margin-bottom: 1.5rem;
+}
+
+.lead-paragraph {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #0a0a0a;
+  line-height: 1.7;
+}
+
+.callout-box {
+  margin: 2.5rem 0;
+  padding: 1.75rem;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.04));
+  border-left: 4px solid var(--color-gold);
+  border-radius: 12px;
+  display: flex;
+  gap: 1.25rem;
+}
+
+.callout-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: var(--color-gold);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.callout-content {
+  flex: 1;
+}
+
+.callout-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-gold-dark);
+}
+
+.callout-content p {
+  margin: 0;
+  color: #404040;
+}
+
+.chapters-section {
+  margin-top: 4rem;
+}
+
+.chapters-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.chapter-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.75rem;
+  background: white;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  transition: all var(--transition-base);
+}
+
+.chapter-card:hover {
+  border-color: var(--color-gold);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+  transform: translateX(8px);
+}
+
+.chapter-number {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.chapter-info {
+  flex: 1;
+}
+
+.chapter-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+  color: #0a0a0a;
+}
+
+.chapter-description {
+  font-size: 0.95rem;
+  color: #525252;
+}
+
+.chapter-arrow {
+  flex-shrink: 0;
+  color: var(--color-gold);
+  transition: transform var(--transition-base);
+}
+
+.chapter-card:hover .chapter-arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 1024px) {
+  .thesis-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .thesis-sidebar,
+  .section-marker {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .thesis-meta {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav-progress {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .thesis-header {
+    padding: 2.5rem 1rem;
+  }
+
+  .thesis-content {
+    padding: 2rem 1rem;
+  }
+}
