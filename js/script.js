@@ -136,6 +136,27 @@ if (progressBar) {
   updateProgress(); // Initial call
 }
 
+const initChapterProgress = () => {
+  if (!document.body.classList.contains('chapter-page')) return;
+
+  const progress = document.createElement('div');
+  progress.className = 'chapter-scroll-progress';
+  progress.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(progress);
+
+  const update = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const current = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    progress.style.width = `${Math.min(current, 100)}%`;
+  };
+
+  window.addEventListener('scroll', update);
+  window.addEventListener('resize', update);
+  update();
+};
+
+initChapterProgress();
+
 // ===================================
 // Active Sidebar Link & Smooth Scroll
 // ===================================
@@ -192,7 +213,7 @@ if (allNavLinks.length > 0) {
 // Staggered Animation for Cards
 // ===================================
 const observeCards = () => {
-  const cards = document.querySelectorAll('.proposal-card, .chapter-card, .info-card');
+  const cards = document.querySelectorAll('.proposal-card, .info-card');
   
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
@@ -353,6 +374,50 @@ if (prefersReducedMotion.matches) {
 }
 
 // ===================================
+// Book/Page Reveal on Scroll
+// ===================================
+const initBookReveal = () => {
+  if (prefersReducedMotion.matches) return;
+
+  const revealSelectors = [
+    '.landing-page .university-info',
+    '.landing-page .proposal-section',
+    '.landing-page .quick-links-section',
+    '.landing-page .home-projects-section',
+    '.landing-page .landing-footer',
+    '.thesis-page .thesis-header',
+    '.thesis-page .content-section',
+    '.chapter-page .chapter-header',
+    '.chapter-page .chapter-section',
+    '.chapter-page .chapter-footer-nav'
+  ];
+
+  const revealItems = document.querySelectorAll(revealSelectors.join(','));
+  if (revealItems.length === 0) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      } else {
+        entry.target.classList.remove('is-visible');
+      }
+    });
+  }, {
+    threshold: 0.18,
+    rootMargin: '0px 0px -8% 0px'
+  });
+
+  revealItems.forEach((item, index) => {
+    item.classList.add('book-reveal');
+    item.style.transitionDelay = `${Math.min(index * 35, 180)}ms`;
+    observer.observe(item);
+  });
+};
+
+initBookReveal();
+
+// ===================================
 // Dynamic Floating Particles for Chapter Pages
 // ===================================
 const initFloatingParticles = () => {
@@ -396,7 +461,7 @@ if (document.body.classList.contains('chapter-page')) {
 // Scroll-triggered Animations
 // ===================================
 const animateOnScroll = () => {
-  const elements = document.querySelectorAll('.chapter-section');
+  const elements = document.querySelectorAll('.chapter-page .definition-item, .chapter-page .question-item');
   
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
