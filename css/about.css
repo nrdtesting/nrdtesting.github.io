@@ -98,6 +98,7 @@
   font-size: 1.125rem;
   line-height: 1.85;
   color: var(--color-text-muted);
+  text-align: justify;
 }
 
 .about-quick-meta {
@@ -193,6 +194,7 @@
 .about-card p {
   color: #dedede;
   line-height: 1.85;
+  text-align: justify;
 }
 
 .large-card {
@@ -215,6 +217,7 @@
 .skill-list li {
   color: #e2e2e2;
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
 .interest-tags {

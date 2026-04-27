@@ -281,23 +281,65 @@
 }
 
 .chapter-card {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 1.5rem;
   padding: 1.75rem;
   background: white;
   border: 2px solid rgba(0, 0, 0, 0.08);
-  border-radius: 16px;
+  border-radius: 12px;
   transition: all var(--transition-base);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.chapter-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  z-index: -1;
+}
+
+.chapter-card::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -35%;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: rotate(18deg);
+  transition: left 0.6s ease;
+  z-index: 0;
+}
+
+.chapter-card-one::before {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.chapter-card-two::before {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+.chapter-card-three::before {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
 }
 
 .chapter-card:hover {
   border-color: var(--color-gold);
-  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
-  transform: translateX(8px);
+  box-shadow: 0 16px 38px rgba(212, 175, 55, 0.2), 0 0 24px rgba(212, 175, 55, 0.16);
+  transform: translateX(8px) scale(1.015);
+}
+
+.chapter-card:hover::after {
+  left: 105%;
 }
 
 .chapter-number {
+  position: relative;
+  z-index: 1;
   flex-shrink: 0;
   width: 60px;
   height: 60px;
@@ -310,9 +352,12 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: white;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
 .chapter-info {
+  position: relative;
+  z-index: 1;
   flex: 1;
 }
 
@@ -328,6 +373,8 @@
 }
 
 .chapter-arrow {
+  position: relative;
+  z-index: 1;
   flex-shrink: 0;
   color: var(--color-gold);
   transition: transform var(--transition-base);
@@ -478,5 +525,240 @@
   .map-frame-wrap iframe {
     height: 78vh;
     min-height: 78vh;
+  }
+}
+
+/* ===================================
+   Thesis Overview Refresh
+   =================================== */
+
+.thesis-page {
+  background:
+    linear-gradient(90deg, rgba(12, 12, 12, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, #f4f1e8 0%, #fbfaf6 42%, #ece7dc 100%);
+  background-size: 36px 36px, auto;
+}
+
+.thesis-nav {
+  background: rgba(12, 12, 10, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  color: #ffffff;
+}
+
+.thesis-nav .nav-back {
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.thesis-nav .nav-back:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.thesis-nav .nav-progress {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.thesis-header {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(120deg, rgba(212, 175, 55, 0.12), transparent 32%),
+    linear-gradient(180deg, #10100f 0%, #171613 100%);
+  border-bottom: 0;
+  padding: 5.5rem 1.5rem 4.5rem;
+}
+
+.thesis-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+}
+
+.thesis-header::after {
+  content: "NRD";
+  position: absolute;
+  right: clamp(1rem, 8vw, 8rem);
+  bottom: -0.2em;
+  color: rgba(255, 255, 255, 0.035);
+  font-family: var(--font-display);
+  font-size: clamp(7rem, 18vw, 15rem);
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.thesis-header-content {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+}
+
+.header-label {
+  display: inline-flex;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  border-radius: 999px;
+  color: var(--color-gold-light);
+  background: rgba(212, 175, 55, 0.08);
+}
+
+.thesis-title {
+  max-width: 940px;
+  color: #ffffff;
+  font-size: clamp(2.25rem, 5.7vw, 4.4rem);
+  line-height: 1.05;
+}
+
+.thesis-proponents,
+.thesis-subtitle {
+  color: #d8d3c8;
+}
+
+.thesis-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.8rem;
+  max-width: 780px;
+}
+
+.meta-group {
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+}
+
+.meta-label {
+  color: #b8b2a7;
+}
+
+.meta-value {
+  color: #ffffff;
+}
+
+.thesis-content {
+  max-width: 1220px;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 3rem;
+}
+
+.sidebar-sticky {
+  top: 5.5rem;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px);
+}
+
+.sidebar-link {
+  border-radius: 6px;
+}
+
+.sidebar-link.active {
+  background: #10100f;
+  color: #ffffff;
+  border-left-color: var(--color-gold);
+}
+
+.sidebar-info {
+  border-radius: 8px;
+  background: rgba(212, 175, 55, 0.09);
+}
+
+.thesis-article {
+  max-width: 900px;
+}
+
+.content-section {
+  padding: 2.2rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 22px 55px rgba(35, 31, 22, 0.08);
+}
+
+.content-section .section-title {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.content-section .section-title::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 3px;
+  margin-top: 0.75rem;
+  background: var(--color-gold);
+}
+
+.section-marker {
+  left: -4.5rem;
+  top: 1.3rem;
+}
+
+.marker-number {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 50%;
+  background: #10100f;
+  color: var(--color-gold-light);
+  opacity: 1;
+  font-size: 1rem;
+}
+
+.callout-box {
+  border-radius: 8px;
+  background: #f7f1df;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+.thesis-action-btn {
+  border-radius: 8px;
+}
+
+.chapters-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.chapter-card {
+  min-height: 250px;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 1.4rem;
+}
+
+.chapter-arrow {
+  margin-top: auto;
+  align-self: flex-end;
+}
+
+@media (max-width: 1024px) {
+  .chapters-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chapter-card {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .thesis-header {
+    padding: 4rem 1rem 3rem;
+  }
+
+  .content-section {
+    padding: 1.5rem;
   }
 }
