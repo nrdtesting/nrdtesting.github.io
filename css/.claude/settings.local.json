@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import pypdf\")",
+      "Bash(which pdftotext *)",
+      "Bash(python --version)",
+      "Bash(py --version)"
+    ]
+  }
+}
