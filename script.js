@@ -702,7 +702,13 @@ if (ambientOrbs.length > 0) {
   // -------------------- AUDIO (Web Audio API, fully synthesized) --------------------
   const JJAudio = (() => {
     let ctx, master, started = false;
-    let enabled = localStorage.getItem('jjSound') !== 'off'; // default ON
+    // localStorage can throw in sandboxed/embedded contexts (iframes, some
+    // report/LMS hosts). Guard it so it never kills the whole module.
+    const store = {
+      get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+      set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignore */ } }
+    };
+    let enabled = store.get('jjSound') !== 'off'; // default ON
 
     const init = () => {
       if (ctx) return;
@@ -792,7 +798,7 @@ if (ambientOrbs.length > 0) {
       hover() { if (live()) tone(1320, 0, 0.05, 0.02); },
       toggle() {
         enabled = !enabled;
-        localStorage.setItem('jjSound', enabled ? 'on' : 'off');
+        store.set('jjSound', enabled ? 'on' : 'off');
         init();
         if (ctx && ctx.state === 'suspended') ctx.resume();
         startPad();
@@ -966,14 +972,21 @@ if (ambientOrbs.length > 0) {
     const enter = (withSound) => {
       if (entered) return;
       entered = true;
-      if (withSound) { JJAudio.unlock(); JJAudio.chime(); }
+      // Dismiss FIRST, so a blocked/throwing AudioContext can never trap the
+      // visitor on the loading screen. Audio is best-effort after that.
       overlay.classList.add('is-hidden');
       setTimeout(() => { overlay.style.display = 'none'; }, 950);
+      if (withSound) { try { JJAudio.unlock(); JJAudio.chime(); } catch (e) { /* ignore */ } }
     };
     overlay.addEventListener('click', () => enter(true));
     const btn = document.getElementById('introEnter');
     if (btn) btn.addEventListener('click', (e) => { e.stopPropagation(); enter(true); });
     // Safety: never trap the visitor — auto-open after a while (no audio).
-    setTimeout(() => enter(false), 9000);
+    setTimeout(() => enter(false), 6000);
   }
+
+  // Signal that JS is alive AND the intro handler is attached. Until this class
+  // exists, CSS lets the overlay auto-fade on its own — so hosts that strip or
+  // sandbox scripts still reveal the site instead of freezing on the loader.
+  document.documentElement.classList.add('js');
 })();
