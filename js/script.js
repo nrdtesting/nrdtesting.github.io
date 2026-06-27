@@ -101,21 +101,8 @@ const initWaveCanvas = () => {
 // ===================================
 // Intro Animation
 // ===================================
-document.addEventListener('DOMContentLoaded', () => {
-  const overlay = document.getElementById('introOverlay');
-  
-  if (overlay) {
-    // Disable pointer events after animation
-    setTimeout(() => {
-      overlay.style.pointerEvents = 'none';
-    }, 2600);
-  }
-  
-  // Initialize wave canvas after intro
-  setTimeout(() => {
-    initWaveCanvas();
-  }, 2600);
-});
+// Intro, audio and the liquid-gold canvas are handled by the
+// "Landing v2" experience module at the bottom of this file.
 
 // ===================================
 // Reading Progress Bar (Thesis Page)
@@ -280,15 +267,9 @@ proposalCards.forEach(card => {
 // ===================================
 window.addEventListener('scroll', () => {
   const scrolled = window.pageYOffset;
-  
-  // Parallax for labels
-  const labelBadge = document.querySelector('.label-badge');
-  if (labelBadge) {
-    const yPos = scrolled * 0.5;
-    labelBadge.style.transform = `translateY(${yPos}px)`;
-  }
-  
-  // Parallax for section numbers
+
+  // Parallax for section numbers. (The hero label-badge keeps its CSS float
+  // animation and gets cursor-driven 3D tilt instead — see Landing v2 module.)
   const sectionNumbers = document.querySelectorAll('.section-number');
   sectionNumbers.forEach(num => {
     const yPos = scrolled * 0.3;
@@ -398,9 +379,11 @@ const initBookReveal = () => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
+        // Reveal once, then stop observing so the effect never replays.
+        // (Re-removing 'is-visible' on scroll-out was causing sections to
+        // re-tilt/blur, which looked like the slide above was "stuck".)
         entry.target.classList.add('is-visible');
-      } else {
-        entry.target.classList.remove('is-visible');
+        observer.unobserve(entry.target);
       }
     });
   }, {
@@ -410,7 +393,9 @@ const initBookReveal = () => {
 
   revealItems.forEach((item, index) => {
     item.classList.add('book-reveal');
-    item.style.transitionDelay = `${Math.min(index * 35, 180)}ms`;
+    // Stagger only the items already in view on load; later items reveal
+    // immediately when scrolled to, with no lingering delay.
+    item.style.transitionDelay = `${Math.min(index * 35, 140)}ms`;
     observer.observe(item);
   });
 };
@@ -612,10 +597,8 @@ const initCursorTrail = () => {
   animateTrail();
 };
 
-// Optionally enable cursor trail on landing page only
-if (document.body.classList.contains('landing-page') && !prefersReducedMotion.matches) {
-  setTimeout(initCursorTrail, 3000);
-}
+// Cursor trail is superseded by the liquid cursor-glow in the Landing v2 module.
+// (initCursorTrail is left defined above in case it is wanted on another page.)
 
 // ===================================
 // Log Welcome Message
@@ -705,3 +688,305 @@ if (ambientOrbs.length > 0) {
 
   requestAnimationFrame(animateAmbientOrbs);
 }
+
+// ===================================================================
+// LANDING v2 — Liquid Gold Experience
+// Audio (synth) · droplet canvas · 3D hero tilt · control dock · intro
+// ===================================================================
+(() => {
+  if (!document.body.classList.contains('landing-page')) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const GOLD = '212, 175, 55';
+  const GOLD_L = '245, 230, 168';
+
+  // -------------------- AUDIO (Web Audio API, fully synthesized) --------------------
+  const JJAudio = (() => {
+    let ctx, master, started = false;
+    // localStorage can throw in sandboxed/embedded contexts (iframes, some
+    // report/LMS hosts). Guard it so it never kills the whole module.
+    const store = {
+      get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+      set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignore */ } }
+    };
+    let enabled = store.get('jjSound') !== 'off'; // default ON
+
+    const init = () => {
+      if (ctx) return;
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      ctx = new AC();
+      master = ctx.createGain();
+      master.gain.value = 0;
+      master.connect(ctx.destination);
+    };
+
+    const ramp = (param, to, t) => {
+      const now = ctx.currentTime;
+      param.cancelScheduledValues(now);
+      param.setValueAtTime(param.value, now);
+      param.linearRampToValueAtTime(to, now + t);
+    };
+
+    const startPad = () => {
+      if (started || !ctx) return;
+      started = true;
+      const padGain = ctx.createGain();
+      padGain.gain.value = 0.4;
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = 620;
+      lp.Q.value = 0.7;
+      padGain.connect(lp);
+      lp.connect(master);
+
+      // Soft, warm A-minor-ish pad
+      [110, 164.81, 220, 277.18].forEach((f, i) => {
+        const o = ctx.createOscillator();
+        o.type = i % 2 ? 'sine' : 'triangle';
+        o.frequency.value = f;
+        o.detune.value = (i - 1.5) * 5;
+        const g = ctx.createGain();
+        g.gain.value = i === 0 ? 0.55 : 0.26;
+        o.connect(g);
+        g.connect(padGain);
+        o.start();
+      });
+
+      // Slow filter sweep so the pad gently breathes
+      const lfo = ctx.createOscillator();
+      const lg = ctx.createGain();
+      lfo.frequency.value = 0.06;
+      lg.gain.value = 200;
+      lfo.connect(lg);
+      lg.connect(lp.frequency);
+      lfo.start();
+    };
+
+    const tone = (freq, when, dur, vol, type = 'sine') => {
+      if (!ctx) return;
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = type;
+      o.frequency.value = freq;
+      const t0 = ctx.currentTime + when;
+      g.gain.setValueAtTime(0, t0);
+      g.gain.linearRampToValueAtTime(vol, t0 + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      o.connect(g);
+      g.connect(master);
+      o.start(t0);
+      o.stop(t0 + dur + 0.05);
+    };
+
+    const live = () => ctx && enabled && ctx.state === 'running';
+
+    return {
+      isEnabled: () => enabled,
+      unlock() { // must run from a user gesture
+        init();
+        if (!ctx) return;
+        if (ctx.state === 'suspended') ctx.resume();
+        startPad();
+        ramp(master.gain, enabled ? 0.5 : 0, 2.5);
+      },
+      chime() {
+        if (!live()) return;
+        [523.25, 659.25, 783.99, 1046.5].forEach((f, i) =>
+          tone(f, i * 0.09, 1.3, 0.11, i === 3 ? 'triangle' : 'sine'));
+      },
+      click() { if (live()) tone(880, 0, 0.09, 0.05); },
+      hover() { if (live()) tone(1320, 0, 0.05, 0.02); },
+      toggle() {
+        enabled = !enabled;
+        store.set('jjSound', enabled ? 'on' : 'off');
+        init();
+        if (ctx && ctx.state === 'suspended') ctx.resume();
+        startPad();
+        if (master) ramp(master.gain, enabled ? 0.5 : 0, 0.8);
+        return enabled;
+      }
+    };
+  })();
+
+  // -------------------- LIQUID GOLD DROPLET CANVAS --------------------
+  const canvas = document.getElementById('waveCanvas');
+  const c = canvas && canvas.getContext('2d');
+  if (canvas && c && !reduce) {
+    let dpr;
+    const ripples = [];
+    const drops = [];
+    const mouse = { x: -999, y: -999, gx: -999, gy: -999, on: false };
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = innerWidth * dpr;
+      canvas.height = innerHeight * dpr;
+      canvas.style.width = innerWidth + 'px';
+      canvas.style.height = innerHeight + 'px';
+      c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    addEventListener('resize', resize);
+
+    const ripple = (x, y, max) => ripples.push({
+      x, y, r: 0, max: max || 80 + Math.random() * 120,
+      sp: 1.4 + Math.random() * 1.6, life: 1
+    });
+
+    const newDrop = (init) => ({
+      x: Math.random() * innerWidth,
+      y: init ? Math.random() * innerHeight : -20,
+      vy: 2.5 + Math.random() * 3.5,
+      len: 8 + Math.random() * 16,
+      splash: innerHeight * (0.5 + Math.random() * 0.45),
+      size: 0.8 + Math.random() * 1.4
+    });
+    for (let i = 0; i < 13; i++) drops.push(newDrop(true));
+
+    let lastMove = 0;
+    addEventListener('pointermove', (e) => {
+      mouse.x = e.clientX; mouse.y = e.clientY; mouse.on = true;
+      const now = Date.now();
+      if (now - lastMove > 90) { lastMove = now; ripple(e.clientX, e.clientY, 55 + Math.random() * 55); }
+    });
+    addEventListener('pointerdown', (e) => {
+      for (let i = 0; i < 3; i++) setTimeout(() => ripple(e.clientX, e.clientY, 120 + i * 45), i * 110);
+      JJAudio.click();
+    });
+
+    const frame = () => {
+      c.clearRect(0, 0, innerWidth, innerHeight);
+
+      // cursor glow (lerped follow)
+      mouse.gx += (mouse.x - mouse.gx) * 0.08;
+      mouse.gy += (mouse.y - mouse.gy) * 0.08;
+      if (mouse.on) {
+        const g = c.createRadialGradient(mouse.gx, mouse.gy, 0, mouse.gx, mouse.gy, 190);
+        g.addColorStop(0, `rgba(${GOLD}, 0.15)`);
+        g.addColorStop(1, `rgba(${GOLD}, 0)`);
+        c.fillStyle = g;
+        c.fillRect(0, 0, innerWidth, innerHeight);
+      }
+
+      // falling droplets -> splash into ripples
+      for (const d of drops) {
+        d.y += d.vy;
+        if (d.y >= d.splash) { ripple(d.x, d.splash, 45 + Math.random() * 65); Object.assign(d, newDrop(false)); }
+        const grad = c.createLinearGradient(d.x, d.y - d.len, d.x, d.y);
+        grad.addColorStop(0, `rgba(${GOLD_L}, 0)`);
+        grad.addColorStop(1, `rgba(${GOLD_L}, 0.5)`);
+        c.strokeStyle = grad;
+        c.lineWidth = d.size;
+        c.beginPath();
+        c.moveTo(d.x, d.y - d.len);
+        c.lineTo(d.x, d.y);
+        c.stroke();
+      }
+
+      // ripples
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const r = ripples[i];
+        r.r += r.sp;
+        r.life = 1 - r.r / r.max;
+        if (r.life <= 0) { ripples.splice(i, 1); continue; }
+        c.beginPath();
+        c.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+        c.strokeStyle = `rgba(${GOLD}, ${r.life * 0.5})`;
+        c.lineWidth = r.life * 2 + 0.4;
+        c.stroke();
+        c.beginPath();
+        c.arc(r.x, r.y, r.r * 0.6, 0, Math.PI * 2);
+        c.strokeStyle = `rgba(${GOLD_L}, ${r.life * 0.18})`;
+        c.lineWidth = 1;
+        c.stroke();
+      }
+
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  }
+
+  // -------------------- CURSOR-REACTIVE 3D HERO TILT --------------------
+  const hero = document.querySelector('.hero-content');
+  if (hero && !reduce) {
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    addEventListener('pointermove', (e) => {
+      tx = (e.clientY / innerHeight - 0.5) * -6;
+      ty = (e.clientX / innerWidth - 0.5) * 8;
+    });
+    const tick = () => {
+      cx += (tx - cx) * 0.06;
+      cy += (ty - cy) * 0.06;
+      hero.style.transform = `perspective(900px) rotateX(${cx}deg) rotateY(${cy}deg)`;
+      requestAnimationFrame(tick);
+    };
+    tick();
+  }
+
+  // -------------------- FILM GRAIN + CONTROL DOCK --------------------
+  const grain = document.createElement('div');
+  grain.className = 'jj-grain';
+  grain.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(grain);
+
+  const dock = document.createElement('div');
+  dock.className = 'jj-dock';
+
+  const soundBtn = document.createElement('button');
+  soundBtn.type = 'button';
+  soundBtn.setAttribute('aria-label', 'Toggle sound');
+  const syncSound = () => {
+    soundBtn.textContent = JJAudio.isEnabled() ? '🔊' : '🔇';
+    soundBtn.title = JJAudio.isEnabled() ? 'Sound on' : 'Sound off';
+    soundBtn.classList.toggle('is-off', !JJAudio.isEnabled());
+  };
+  syncSound();
+  soundBtn.addEventListener('click', () => {
+    const on = JJAudio.toggle();
+    syncSound();
+    if (on) JJAudio.chime();
+  });
+
+  const partyBtn = document.createElement('button');
+  partyBtn.type = 'button';
+  partyBtn.title = 'Celebrate';
+  partyBtn.setAttribute('aria-label', 'Celebrate');
+  partyBtn.textContent = '✨';
+  partyBtn.addEventListener('click', () => {
+    if (typeof triggerConfetti === 'function') triggerConfetti();
+    JJAudio.chime();
+  });
+
+  dock.appendChild(soundBtn);
+  dock.appendChild(partyBtn);
+  document.body.appendChild(dock);
+
+  // soft hover ticks on the key interactive elements
+  document.querySelectorAll('.quick-link-card, .proposal-card, .home-project-card, .social-link, .nav-back, .intro-enter')
+    .forEach(el => el.addEventListener('mouseenter', () => JJAudio.hover()));
+
+  // -------------------- TAP-TO-ENTER INTRO (unlocks audio) --------------------
+  const overlay = document.getElementById('introOverlay');
+  if (overlay) {
+    let entered = false;
+    const enter = (withSound) => {
+      if (entered) return;
+      entered = true;
+      // Dismiss FIRST, so a blocked/throwing AudioContext can never trap the
+      // visitor on the loading screen. Audio is best-effort after that.
+      overlay.classList.add('is-hidden');
+      setTimeout(() => { overlay.style.display = 'none'; }, 950);
+      if (withSound) { try { JJAudio.unlock(); JJAudio.chime(); } catch (e) { /* ignore */ } }
+    };
+    overlay.addEventListener('click', () => enter(true));
+    const btn = document.getElementById('introEnter');
+    if (btn) btn.addEventListener('click', (e) => { e.stopPropagation(); enter(true); });
+    // Safety: never trap the visitor — auto-open after a while (no audio).
+    setTimeout(() => enter(false), 6000);
+  }
+
+  // Signal that JS is alive AND the intro handler is attached. Until this class
+  // exists, CSS lets the overlay auto-fade on its own — so hosts that strip or
+  // sandbox scripts still reveal the site instead of freezing on the loader.
+  document.documentElement.classList.add('js');
+})();
