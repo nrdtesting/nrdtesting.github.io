@@ -57,8 +57,10 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  /* Fallback auto-fade for when JS is unavailable (html.js overrides this to
+     wait for the user's tap). Slightly longer so the loader doesn't just flash. */
   animation: fadeOut 0.8s ease forwards;
-  animation-delay: 1.8s;
+  animation-delay: 2.6s;
 }
 
 .intro-content {
@@ -1195,8 +1197,11 @@
    LANDING v2 — Liquid Gold Experience
    =================================== */
 
-/* Intro becomes a "tap to enter" gate (overrides the old auto-fade) */
-.landing-page .intro-overlay {
+/* Intro becomes a "tap to enter" gate ONLY when JS is alive (html.js is added
+   by script.js after the enter handler is attached). Without JS — or if the
+   host strips/sandboxes scripts — the base .intro-overlay auto-fade still runs,
+   so the site is never frozen on the loading screen. */
+html.js .landing-page .intro-overlay {
   animation: none;
   opacity: 1;
   visibility: visible;
