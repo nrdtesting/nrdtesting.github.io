@@ -1,0 +1,53 @@
+HOW TO UPLOAD THE NEW SITE (v2)
+================================
+
+WHAT THIS FOLDER IS
+  NRDV2 is the complete new website. Every file the site needs is here.
+  The old NRDTESTING folder is now retired; don't upload from it anymore.
+
+STEP 1 - CLEAN THE REPO (one-time, recommended)
+  The repo has junk from past uploads (a nested NRDTESTING folder, stray
+  files like "claude", "test", "settings.local.json", root-level .css
+  copies). To delete a file/folder on GitHub:
+    - open the file in the repo
+    - click the trash-can icon (top right of the file view)
+    - commit
+  For the nested NRDTESTING folder: open it, and delete files inside it
+  until it disappears (GitHub removes empty folders automatically).
+  If that is tedious, skip it; the new files below will overwrite what
+  matters, and strays are only clutter.
+
+STEP 2 - UPLOAD EVERYTHING FROM INSIDE THIS FOLDER
+  Go to:  https://github.com/nrdtesting/nrdtesting.github.io/upload/main
+
+  IMPORTANT: open the NRDV2 folder in File Explorer first, press
+  Ctrl+A to select ALL its CONTENTS (files AND the css/js/images/assets
+  folders), then drag the selection onto the GitHub upload box.
+
+  Do NOT drag the NRDV2 folder itself. Dragging the folder creates
+  nrdtesting.github.io/NRDV2/... and nothing will work. Drag what is
+  INSIDE it.
+
+  Commit. Wait ~1 minute for GitHub Pages to rebuild.
+
+STEP 3 - VERIFY
+  - open https://nrdtesting.github.io/ in Incognito (or Ctrl+F5)
+  - you should land in the 3D castle; scroll to dive
+  - check https://nrdtesting.github.io/js/home.js exists (not 404)
+
+WHAT'S IN HERE
+  index.html            the 3D "Infinity Castle" dive homepage
+  about.html            Tungkol sa 'kin (Taglish, humanized)
+  thesis1.html          thesis overview
+  chapter1/2/3.html     chapters as 3D folding paper
+  projects.html         build archive
+  map.html              Flourish road-density map
+  research.html         redirect stub -> thesis1.html (kills the old page)
+  events.html           redirect stub -> index.html
+  css/home.css          homepage styles
+  css/site.css          inner-page "paper in the dark" styles
+  js/three.min.js       the 3D engine (must be uploaded!)
+  js/home.js            the castle world
+  js/site.js            paper fold/crumple effects
+  images/puplogo.png
+  assets/papers/DEQUINA_RESUME_2026.pdf

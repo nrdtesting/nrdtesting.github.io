@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JJ — mula sa'yo, para sa bayan</title>
+  <meta name="description" content="Personal na website ni Justine Jun Dequiña. Econ student sa PUP. Thesis, projects, at kung anu-ano pa." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body>
+
+  <canvas id="world"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div id="speedfx" aria-hidden="true"></div>
+  <div id="focusfx" aria-hidden="true"></div>
+
+  <!-- top chrome -->
+  <header class="top">
+    <a class="brand" href="index.html"><span class="dot"></span> JJ</a>
+    <nav class="topnav">
+      <a class="navlink" href="about.html">Tungkol</a>
+      <a class="navlink" href="thesis1.html">Thesis</a>
+      <a class="navlink" href="projects.html">Mga Gawa</a>
+    </nav>
+  </header>
+
+  <!-- milestone texts: appear at depths as you dive.
+       data-at = scroll progress (0..1), data-w = fade window -->
+  <div class="mile" data-at="0.02" data-w="0.05">
+    <div class="sub">i-scroll mo lang nang dahan-dahan.</div>
+  </div>
+
+  <div class="mile" data-at="0.13" data-w="0.09" data-focus="1">
+    <div class="big">JUSTINE <span class="amber">JUN</span></div>
+    <div class="sub">Economic student @ PUP-Manila. Personal Web. Uprising Batch 1. </div>
+  </div>
+
+  <div class="mile" data-at="0.28" data-w="0.10">
+    <div class="big">mula sa'yo, <span class="verm">para sa bayan</span></div>
+    <div class="sub"><span class="small">(Sinabi ni Nietzsche yan. PUP is Beyond Good and Evil.)</span></div>
+  </div>
+
+  <div class="mile" data-at="0.43" data-w="0.10" data-focus="1">
+    <div class="big">KALSADA <span class="amber">=</span> TRABAHO?</div>
+    <div class="sub">tungkol talaga ito sa aking thesis na pinamagatang: defense muna kami bago ko ireveal. </div>
+  </div>
+
+  <div class="mile" data-at="0.58" data-w="0.10">
+    <div class="big">DATA ANG PAGKAIN KO, THEORY NAMAN ANG PLATO. <span class="verm">PSA + BSP</span></div>
+    <div class="sub">STATA, Econometrics, Calculus, Excel = CorpoWOW</div>
+  </div>
+
+  <div class="mile" data-at="0.73" data-w="0.10">
+    <div class="big">mga <span class="amber">trip</span> ko</div>
+    <div class="sub">mga ganap ko sa buhay.</div>
+  </div>
+
+  <div class="mile" data-at="0.92" data-w="0.11">
+    <div class="big">tara, <span class="amber">pasok</span>.</div>
+    <div class="doors">
+      <a class="door" href="about.html">
+        <span class="door-kicker">01 · ang may-ari</span>
+        <h3>Tungkol sa 'kin</h3>
+        <p>Sino ba si JJ? Connect me on LinkedIn <3. </p>
+        <span class="go">→</span>
+      </a>
+      <a class="door" href="thesis1.html">
+        <span class="door-kicker">02 · Academics</span>
+        <h3>Ang Thesis</h3>
+        <p>Road density at trabaho. Seryoso to pre pramis, shoutout ko mga kagrupo ko sa loob. </p>
+        <span class="go">→</span>
+      </a>
+      <a class="door" href="projects.html">
+        <span class="door-kicker">03 · Eksperiment. </span>
+        <h3>Mga Gawa</h3>
+        <p>Mas padaliin natin ang buhay. </p>
+        <span class="go">→</span>
+      </a>
+      <a class="door soon" href="soon.html">
+        <span class="door-kicker">04 · abangan</span>
+        <h3>Personal · Hobby · Geography</h3>
+        <p>Mga personal na ganap, mga hilig ko, at mga komentaryo ko sa mga bansa.</p>
+        <span class="badge">coming soon</span>
+      </a>
+    </div>
+    <a class="mini-cv" href="assets/papers/DEQUINA_RESUME_2026.pdf" target="_blank" rel="noopener">o kunin ang CV ko (PDF)</a>
+  </div>
+
+  <div class="hint" id="hint">scroll ↓ sisisid tayo</div>
+  <div class="progress" id="bar"></div>
+
+  <div class="dock">
+    <div class="volwrap" id="volwrap">
+      <input type="range" id="vol" min="0" max="100" value="55" aria-label="Lakas ng tunog" />
+    </div>
+    <button id="btnSound" class="off" type="button" title="Tunog" aria-label="Toggle sound">🔇</button>
+  </div>
+
+  <!-- shown only if 3D can't start; [hidden] is enforced in CSS -->
+  <div id="fallback" hidden>
+    <div class="box">
+      <h2>Hindi nag-start ang 3D view</h2>
+      <p>Eto ang nadetect ng page. Picture-an mo 'to at ipakita kay JJ:</p>
+      <div class="diag" id="fallback-msg">running checks…</div>
+      <div class="links">
+        <a href="about.html">Tungkol</a>
+        <a href="thesis1.html">Thesis</a>
+        <a href="projects.html">Mga Gawa</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/three.min.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

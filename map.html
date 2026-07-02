@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Map | JJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+  <div class="readbar"></div>
+
+  <div class="page">
+    <nav class="bar">
+      <a class="back" href="thesis1.html">← balik sa thesis</a>
+      <div class="bar-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">Tungkol</a>
+        <a href="projects.html">Mga Gawa</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="seal">⌖</div>
+      <div class="kicker">interactive visualization</div>
+      <h1>Regional Road Density Map</h1>
+      <p class="lede">
+        Galawin mo lang. I-hover ang bawat rehiyon para makita ang values nito sa
+        bawat taon.
+      </p>
+    </header>
+
+    <main class="stack">
+      <section class="sheet fold">
+        <div class="map-wrap">
+          <div class="flourish-embed flourish-chart" data-src="visualisation/28512874">
+            <script src="https://public.flourish.studio/resources/embed.js"></script>
+            <noscript>
+              <img src="https://public.flourish.studio/visualisation/28512874/thumbnail" width="100%" alt="visualization" />
+            </noscript>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>JJ · datos mula sa DPWH at PSA</p>
+    </footer>
+  </div>
+
+  <script src="js/site.js"></script>
+</body>
+</html>
