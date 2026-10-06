@@ -1,66 +1,140 @@
 /* ============================================================
-   JJ · INNER PAGES — paper physics v2
-   - each .fold sheet gets dealt a random-ish entrance:
-     crumple-rise, toss, slide-left, slide-right, drop.
-     Reveal once lang; hindi na nagre-repeat pababa-pataas.
-   - laser strike sa title pagkalapag ng papel (CSS side)
-   - floating embers para tuloy ang tema ng kastilyo
-   - leaving a page crumples the whole page away
+   JJ · INNER PAGES v3 — rooms of the castle
+   - shoji doors on each section slide open when you reach it
+   - sticky index highlights the room you are in
+   - timeline line fills as you read; numbers count up
+   - certificate cards flip; project previews tilt
+   - leaving a page closes the doors behind you
    ============================================================ */
 (function () {
   'use strict';
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.documentElement.classList.add('js');
 
-  /* ---- entrance variants: BAWAT TAB MAY SARILING PERSONALIDAD ----
-     about = binabato ang papel; thesis = harap-harapan mula gilid;
-     projects = umiikot; chapters = magkakaiba rin bawat isa */
-  var page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
-  var SIG = {
-    'about.html':    ['fx-toss', 'fx-rise', 'fx-toss', 'fx-drop'],
-    'thesis1.html':  ['fx-slide-l', 'fx-slide-r'],
-    'projects.html': ['fx-spin', 'fx-drop'],
-    'chapter1.html': ['fx-rise', 'fx-slide-r', 'fx-rise'],
-    'chapter2.html': ['fx-slide-l', 'fx-toss'],
-    'chapter3.html': ['fx-drop', 'fx-spin', 'fx-rise'],
-    'soon.html':     ['fx-spin']
-  };
-  var deck = SIG[page] || ['fx-rise', 'fx-toss', 'fx-slide-l', 'fx-slide-r', 'fx-drop'];
-  var folds = document.querySelectorAll('.fold');
-  folds.forEach(function (f, i) {
-    if (!/fx-/.test(f.className)) f.classList.add(deck[i % deck.length]);
+  // doors over the whole page (CSS opens them on arrival)
+  var veil = document.createElement('div');
+  veil.className = 'veil'; veil.setAttribute('aria-hidden', 'true');
+  veil.innerHTML = '<i></i><i></i>';
+  document.body.appendChild(veil);
+
+  /* ---- shoji doors on every section ---- */
+  var rooms = [].slice.call(document.querySelectorAll('.room'));
+  rooms.forEach(function (r) {
+    var p = r.querySelector('.paper');
+    if (!p || reduce) return;
+    var l = document.createElement('span'); l.className = 'sd sd-l'; l.setAttribute('aria-hidden', 'true');
+    var rr = document.createElement('span'); rr.className = 'sd sd-r'; rr.setAttribute('aria-hidden', 'true');
+    p.appendChild(l); p.appendChild(rr);
   });
 
-  /* Reveal based on LAYOUT position (offsetTop), not the transformed
-     position. IntersectionObserver looks at the post-transform spot, so
-     sheets that start slid off to the side were never "visible" and never
-     appeared at all (this was the missing-chapter-buttons bug). */
-  function absTop(el) {
-    var t = 0;
-    while (el) { t += el.offsetTop; el = el.offsetParent; }
-    return t;
-  }
-  var pending = [].slice.call(folds);
-  function revealCheck() {
-    if (!pending.length) return;
-    var line = window.scrollY + window.innerHeight * 0.9;
-    for (var i = pending.length - 1; i >= 0; i--) {
-      if (absTop(pending[i]) + 30 < line) {
-        pending[i].classList.add('on');
-        pending.splice(i, 1);
-      }
-    }
-  }
-  if (reduce) {
-    folds.forEach(function (f) { f.classList.add('on'); });
-  } else {
-    window.addEventListener('scroll', revealCheck, { passive: true });
-    window.addEventListener('resize', revealCheck, { passive: true });
-    revealCheck();
-    setTimeout(revealCheck, 200);  // once more after fonts/layout settle
+  function openCheck() {
+    var line = window.innerHeight * 0.86;
+    rooms.forEach(function (r) {
+      if (!r.classList.contains('open') && r.getBoundingClientRect().top < line) r.classList.add('open');
+    });
   }
 
-  /* ---- embers ng kastilyo: dalawang mumurahing layer lang ---- */
+  /* ---- sticky index: which room am I in? ---- */
+  var railLinks = [].slice.call(document.querySelectorAll('.rail a'));
+  function spy() {
+    if (!railLinks.length) return;
+    var current = null, mid = window.innerHeight * 0.35;
+    rooms.forEach(function (r) { if (r.id && r.getBoundingClientRect().top < mid) current = r.id; });
+    if (!current && rooms[0]) current = rooms[0].id;
+    railLinks.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + current); });
+  }
+
+  /* ---- timelines fill as you scroll past them ---- */
+  var tls = [].slice.call(document.querySelectorAll('.tl'));
+  function fillTimelines() {
+    var line = window.innerHeight * 0.62;
+    tls.forEach(function (tl) {
+      var b = tl.getBoundingClientRect();
+      var f = Math.max(0, Math.min(1, (line - b.top) / Math.max(b.height, 1)));
+      tl.style.setProperty('--fill', f.toFixed(3));
+      [].forEach.call(tl.querySelectorAll('.tl-item'), function (it) {
+        it.classList.toggle('lit', it.getBoundingClientRect().top < line);
+      });
+    });
+  }
+
+  /* ---- numbers count up once ---- */
+  var nums = [].slice.call(document.querySelectorAll('[data-count]'));
+  function countUp() {
+    nums = nums.filter(function (el) {
+      if (el.getBoundingClientRect().top > window.innerHeight * 0.95) return true;
+      var to = parseFloat(el.getAttribute('data-count'));
+      var suffix = el.getAttribute('data-suffix') || '';
+      if (reduce) { el.textContent = to + suffix; return false; }
+      var t0 = performance.now(), dur = 1100;
+      (function step(now) {
+        var k = Math.min(1, (now - t0) / dur);
+        var e = 1 - Math.pow(1 - k, 3);
+        el.textContent = Math.round(to * e) + suffix;
+        if (k < 1) requestAnimationFrame(step);
+      })(t0);
+      return false;
+    });
+  }
+
+  /* ---- reading progress ---- */
+  var readbar = document.querySelector('.readbar');
+  function progress() {
+    if (!readbar) return;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    readbar.style.width = (max > 0 ? Math.min(100, window.scrollY / max * 100) : 0) + '%';
+  }
+
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      openCheck(); spy(); fillTimelines(); countUp(); progress();
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  if (reduce) rooms.forEach(function (r) { r.classList.add('open'); });
+  setTimeout(onScroll, 350);   // after the page doors have opened
+  onScroll();
+
+  /* ---- certificate cards: tap to flip on touch screens ---- */
+  [].forEach.call(document.querySelectorAll('.cred'), function (c) {
+    c.addEventListener('click', function (e) {
+      if (e.target.closest('a')) return;
+      c.classList.toggle('flip');
+    });
+    c.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.classList.toggle('flip'); }
+    });
+  });
+
+  /* ---- project previews tilt toward the cursor ---- */
+  if (!reduce && window.matchMedia('(pointer: fine)').matches) {
+    [].forEach.call(document.querySelectorAll('.frame'), function (f) {
+      f.addEventListener('pointermove', function (e) {
+        var b = f.getBoundingClientRect();
+        var x = (e.clientX - b.left) / b.width - 0.5, y = (e.clientY - b.top) / b.height - 0.5;
+        f.style.setProperty('--ry', (x * 9).toFixed(2) + 'deg');
+        f.style.setProperty('--rx', (-y * 7).toFixed(2) + 'deg');
+      });
+      f.addEventListener('pointerleave', function () {
+        f.style.setProperty('--ry', '0deg'); f.style.setProperty('--rx', '0deg');
+      });
+    });
+    [].forEach.call(document.querySelectorAll('.vcard'), function (v) {
+      v.addEventListener('pointermove', function (e) {
+        var b = v.getBoundingClientRect();
+        v.style.setProperty('--mx', (e.clientX - b.left) + 'px');
+        v.style.setProperty('--my', (e.clientY - b.top) + 'px');
+      });
+    });
+  }
+
+  /* ---- floating embers ---- */
   if (!reduce) {
     ['', 'e2'].forEach(function (extra) {
       var em = document.createElement('div');
@@ -70,34 +144,27 @@
     });
   }
 
-  /* ---- reading progress ---- */
-  var readbar = document.querySelector('.readbar');
-  if (readbar) {
-    var onScroll = function () {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      var p = max > 0 ? (window.scrollY / max) * 100 : 0;
-      readbar.style.width = Math.min(p, 100) + '%';
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
-
-  /* ---- page-leave crumple ---- */
+  /* ---- leaving: the doors slide shut, then we go ---- */
   if (!reduce) {
     document.addEventListener('click', function (e) {
       var a = e.target.closest ? e.target.closest('a') : null;
-      if (!a) return;
+      if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
       var href = a.getAttribute('href') || '';
       if (a.target === '_blank' || a.hasAttribute('download')) return;
-      if (!href || href.charAt(0) === '#' || /^https?:|^mailto:/i.test(href)) return;
+      if (!href || href.charAt(0) === '#' || /^https?:|^mailto:|^tel:/i.test(href)) return;
       e.preventDefault();
       document.body.classList.add('leaving');
-      setTimeout(function () { window.location.href = href; }, 380);
+      setTimeout(function () { window.location.href = href; }, 420);
     });
   }
+  // coming back with the browser's Back button: open the doors again
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) document.body.classList.remove('leaving');
+  });
 
-  /* ---- keyboard: arrows sa mga kabanata, Esc pabalik ---- */
+  /* ---- keyboard: arrows between chapters, Esc goes back ---- */
   document.addEventListener('keydown', function (e) {
+    if (e.target && /input|textarea|select/i.test(e.target.tagName)) return;
     if (e.key === 'ArrowLeft') {
       var prev = document.querySelector('.pn a[data-prev]');
       if (prev) prev.click();
