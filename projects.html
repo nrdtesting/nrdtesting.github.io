@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Past Websites | JJ Portfolio</title>
+  <title>Projects · Justine Jun Dequiña</title>
+  <meta name="description" content="Web tools built by Justine Jun Dequiña: a GWA target planner and a money multiplier calculator." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Shippori+Mincho:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/site.css" />
 </head>
 <body>
@@ -14,7 +15,7 @@
 
   <div class="page">
     <nav class="bar">
-      <a class="back" href="index.html">← Back to Home</a>
+      <a class="back" href="index.html">← Back to the castle</a>
       <div class="bar-links">
         <a href="about.html">About</a>
         <a href="thesis1.html">Thesis</a>
@@ -23,47 +24,91 @@
     </nav>
 
     <header class="hero">
-      <div class="seal">⌂</div>
-      <div class="kicker">Past Websites and Experiments</div>
-      <h1>Build archive</h1>
-      <p class="lede">
-        A page for the websites, tools, and small projects made before or alongside this research
-        portfolio. Each square has a short description and a button that opens the live link.
-      </p>
+      <div>
+        <div class="kicker">Builds &amp; experiments</div>
+        <h1>Small tools for <span class="lit">real problems</span></h1>
+        <p class="lede">
+          Each of these started with a calculation I was tired of doing by hand. They are live and free
+          to use. The previews below are the actual sites, so feel free to open one and try it.
+        </p>
+      </div>
+      <div class="seal" aria-hidden="true">作</div>
     </header>
 
-    <main class="stack">
-      <section class="sheet fold">
-        <span class="tag">Project cards</span>
-        <h2>Projects</h2>
-        <div class="cardgrid" style="margin-top: 1.4rem;">
-          <a class="vcard" href="https://nrdtesting.github.io/gwatarget/" target="_blank" rel="noopener">
-            <span class="n">01 &middot; Live Site</span>
-            <h3>GWA Target Calculator</h3>
-            <p>A student-focused grade planning tool for checking the grades needed to hit a target GWA. Useful, direct, and very JJ-coded because it solves an actual school problem.</p>
-            <div class="tags"><span>Calculator</span><span>Academic Tool</span><span>GitHub Pages</span></div>
-            <span class="cta">Open Website →</span>
-          </a>
-          <a class="vcard" href="index.html">
-            <span class="n">02 &middot; This Site</span>
-            <h3>NRD Research Portfolio</h3>
-            <p>The current thesis website with proposal pages, author profile, research dashboard, and a project archive connected to the main academic portfolio.</p>
-            <div class="tags"><span>Research</span><span>Portfolio</span><span>Thesis</span></div>
-            <span class="cta">Open Local Page →</span>
-          </a>
-          <a class="vcard" href="https://nrdtesting.github.io/reserves/" target="_blank" rel="noopener">
-            <span class="n">03 &middot; Live Site</span>
-            <h3>Reserves</h3>
-            <p>Another deployed GitHub Pages project added to the portfolio archive, with direct access from both the homepage and this gallery.</p>
-            <div class="tags"><span>Website</span><span>GitHub Pages</span></div>
-            <span class="cta">Open Website →</span>
-          </a>
+    <div class="layout" style="grid-template-columns:minmax(0,1fr)">
+      <main class="content">
+        <div class="showcase">
+          <article class="proj">
+            <a class="frame" href="https://nrdtesting.github.io/gwatarget/" target="_blank" rel="noopener" aria-label="Open the GWA Target Planner">
+              <div class="chrome"><i></i><i></i><i></i><span>nrdtesting.github.io/gwatarget</span></div>
+              <div class="view"><iframe src="https://nrdtesting.github.io/gwatarget/" loading="lazy" scrolling="no" tabindex="-1" title="GWA Target Planner preview" aria-hidden="true"></iframe></div>
+            </a>
+            <div class="proj-body">
+              <span class="n">01 &middot; Academic planning</span>
+              <h3>GWA Target Planner</h3>
+              <p>
+                A planner for students aiming at Latin honors under the PUP grade scale. Enter your
+                completed semesters, pick a target, and it works out the grades you still need,
+                weighted by units and recalculated as you type.
+              </p>
+              <ul>
+                <li>Summa, Magna, and Cum Laude targets</li>
+                <li>Flags grades that would disqualify honors</li>
+                <li>Printable plan for advising sessions</li>
+              </ul>
+              <div class="btn-row">
+                <a class="btn" href="https://nrdtesting.github.io/gwatarget/" target="_blank" rel="noopener">Open live site ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="proj">
+            <a class="frame" href="https://nrdtesting.github.io/reserves/" target="_blank" rel="noopener" aria-label="Open the Rounds Requirement calculator">
+              <div class="chrome"><i></i><i></i><i></i><span>nrdtesting.github.io/reserves</span></div>
+              <div class="view"><iframe src="https://nrdtesting.github.io/reserves/" loading="lazy" scrolling="no" tabindex="-1" title="Rounds Requirement calculator preview" aria-hidden="true"></iframe></div>
+            </a>
+            <div class="proj-body">
+              <span class="n">02 &middot; Monetary economics</span>
+              <h3>Dequi&ntilde;a Rounds Requirement</h3>
+              <p>
+                In money and banking, it is hard to guess how many lending rounds it takes before deposit
+                creation reaches 99% of the multiplier's limit. This calculator answers that, alongside
+                the simple money multiplier, maximum deposits, and maximum loans.
+              </p>
+              <span class="formula">n = &lceil; log(1 &minus; t) / log(1 &minus; r) &rceil;</span>
+              <div class="btn-row">
+                <a class="btn" href="https://nrdtesting.github.io/reserves/" target="_blank" rel="noopener">Open live site ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="proj">
+            <a class="frame" href="index.html" aria-label="Back to the castle homepage">
+              <div class="chrome"><i></i><i></i><i></i><span>nrdtesting.github.io</span></div>
+              <div class="view" style="background:#0b0714">
+                <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.6rem;text-align:center;padding:1rem;background:radial-gradient(ellipse at center,rgba(255,178,77,.18),transparent 65%)">
+                  <span style="font-family:var(--serif);font-weight:800;font-size:2.2rem;color:var(--amber)">JJ</span>
+                  <span style="font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--mute)">you are here</span>
+                </div>
+              </div>
+            </a>
+            <div class="proj-body">
+              <span class="n">03 &middot; This website</span>
+              <h3>The Castle</h3>
+              <p>
+                A personal site built with plain HTML, CSS, and Three.js, without a framework or build
+                step. The homepage is an endless castle rendered in the browser; each room inside it
+                holds a part of my work.
+              </p>
+              <div class="chips dark"><span>Three.js</span><span>WebGL</span><span>Web Audio</span><span>GitHub Pages</span></div>
+            </div>
+          </article>
         </div>
-      </section>
-    </main>
+      </main>
+    </div>
 
     <footer class="foot">
-      <p>JJ Build Archive</p>
+      <p>More tools will be added as I build them.</p>
     </footer>
   </div>
 

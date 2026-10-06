@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kabanata 3 · Methodology | JJ</title>
+  <title>Chapter 3 · Research Methodology</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Shippori+Mincho:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/site.css" />
 </head>
 <body>
@@ -14,7 +14,7 @@
 
   <div class="page">
     <nav class="bar">
-      <a class="back" href="thesis1.html">← Back to Thesis</a>
+      <a class="back" href="thesis1.html">← Back to the thesis</a>
       <div class="bar-links">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -23,63 +23,130 @@
     </nav>
 
     <header class="hero">
-      <div class="seal">三</div>
-      <div class="kicker">Chapter Three</div>
-      <h1>Research Methodology</h1>
-      <div class="pills">
-        <a class="pill" href="chapter1.html">Chapter 1</a>
-        <a class="pill" href="chapter2.html">Chapter 2</a>
-        <a class="pill here" href="chapter3.html">Chapter 3</a>
+      <div>
+        <div class="kicker">Chapter three</div>
+        <h1>Research Methodology</h1>
+        <p class="lede">
+          This chapter will discuss how the study will be conducted, including the research design, data sources, and econometric model that will be used to analyze the effects of regional infrastructure investment on employment in the Philippines.
+        </p>
+        <div class="pills">
+          <a class="pill" href="chapter1.html">Chapter 1</a>
+          <a class="pill" href="chapter2.html">Chapter 2</a>
+          <a class="pill here" href="chapter3.html">Chapter 3</a>
+        </div>
       </div>
+      <div class="seal" aria-hidden="true">三</div>
     </header>
 
-    <main class="stack">
-      <section class="sheet fold" id="design">
-        <span class="tag">Section 01</span>
-        <h2>Research Design</h2>
-        <p>
-          The study will utilize a quantitative research approach using <strong>Static and Dynamic Panel Data Regression</strong>. The approach is selected to capture the complexities of the regional labor market by accounting for both cross-sectional differences among the regions in the Philippines and the time-series fluctuations in the years 2012 to 2024. This study follows the framework of normative economics by addressing the policy-oriented question of whether the government "should" increase public capital investment to stimulate private sector growth (Hurley, 2000).
-        </p>
-        <p>
-          The researchers aim is beyond simple correlation, we seek to evaluate the elasticity of road density changes, focusing on finding the numerical measure of how much non-agricultural private sector regional employment responds to a development in road infrastructure.
-        </p>
-      </section>
+    <div class="layout">
+      <aside class="rail" aria-label="In this chapter">
+        <div class="rail-t">In this chapter</div>
+        <ol>
+          <li><a href="#method"><span>3.1</span>Method of research</a></li>
+          <li><a href="#data"><span>3.2</span>Data collection</a></li>
+          <li><a href="#model"><span>3.3</span>Econometric model</a></li>
+          <li><a href="#testing"><span>3.4</span>Hypothesis testing</a></li>
+          <li><a href="#diagnostics"><span>3.5</span>Diagnostic testing</a></li>
+        </ol>
+      </aside>
 
-      <section class="sheet fold" id="data">
-        <span class="tag">Section 02</span>
-        <h2>Data Sources and Variables</h2>
-        <p>
-          In this study, aggregated employment, economic output, transportation infrastructure and sociodemographic data across the Philippine regions were collected to develop the necessary dataset for the research. The data were retrieved from publicly available government websites, specifically the <strong>Philippine Statistics Authority (PSA)</strong> and <strong>Department of Public Works and Highways (DPWH)</strong>. The study utilized the <strong>PSA OpenSTAT Database</strong> for most of the variables. Table 1 contains the comprehensive summary and definitions of all variables.
-        </p>
-        <p>
-          The impact of national road density on non-agricultural private sector employment will be analyzed using panel dataset from various administrative and survey based repositories of the Philippine government. 16 administrative regions of the Philippines will be used over a 13-year period providing 208 observations (N=16, T=13). The collected data also includes the shifts in national infrastructure spending across multiple administrations and development plans such as <strong>"Build, Build, Build"</strong>, <strong>"Build Better More"</strong> and <strong>Road Improvement and Institutional Development (RIID)</strong>. For geographic units, the researchers have selected Administrative Regions as the primary unit of analysis. The reason behind the selection is not random, given that employment (non-agricultural private sector) and infrastructure (national road density), as well as other socioeconomic control variables are not available in finer spatial resolutions (e.g. districts, cities, or provinces) across the country for all years within the study period.
-        </p>
-      </section>
+      <main class="content">
+        <section class="room" id="method">
+          <div class="room-head"><span class="no">3.1</span><h2>Method of Research</h2></div>
+          <div class="paper">
+            <p>
+              This study uses a quantitative research approach, which tests theories by examining the relationships among variables that are measured numerically and analyzed using statistical procedures (Creswell, 2014). Applying the Keynesian Multiplier Theory, the researchers use quantitative methods and real-world data. The language that the study will be using is according to the positive economics approach, where the paper attempts to describe and explain the result as is (Mankiw, 2021). This approach is important as the paper needs to resolve the problem of endogeneity bias using a Simultaneous Equations Model (SEM) with the three stage least squares (3SLS) as its estimation technique.
+            </p>
+          </div>
+        </section>
 
-      <section class="sheet fold" id="methods">
-        <span class="tag">Section 03</span>
-        <h2>Methods of Data Analysis</h2>
-        <p>
-          Following Chakrabarti (2018), to estimate the following effect of national road density (R) on private sector (non-agricultural) employment (E) in the Philippines, the study conducted a static and dynamic panel data approach.
-        </p>
-      </section>
+        <section class="room" id="data">
+          <div class="room-head"><span class="no">3.2</span><h2>Data Collection</h2></div>
+          <div class="paper">
+            <p>
+              The process of identifying the effect on the regional employment level of the Philippines is sourced from various economic websites that can be located in the PSA - OpenSTAT Regional Accounts of the Philippines, Department of Public Works And Highways, National Disaster Risk Reduction and Management Council (NDRRMC). These are all necessary for the completion of the dataset and to determine the chain of effects on the employment level.
+            </p>
+            <p>
+              The available project-record data from 2016 to 2025 were approximately 247,000. Each of these records contained the amount of project cost, project category (such as roads, bridges, flood control and drainage, buildings and facilities, and water provision), region, and project year. The study window was delimited to 2016 to 2024, resulting in a panel of 16 regions across 9 years, providing 144 observations (N=16, T=9).
+            </p>
+            <p>
+              Department of Public Works and Highways (DPWH) releases its project records annually from 2016 to the present in the DPWH Transparency Portal where data were sorted by contractor, contract expiry date, source of funds, accomplishment, status, location, and other details related to the construction of the project. Other control variables were sourced from the Philippine Statistics Authority (PSA) using their OpenSTAT system, where widely available data such as Labor force participation rate, regional population, and Total employed persons per region-year are available. The regions of the Philippines were based on their geographical location following the format of 18 regions, including the newly constructed Negros Island Region (NIR) which is composed of Negros Occidental, Negros Oriental, and Siquijor. It is stated in the limitations that the NIR provinces will be added to its previous region: Western and Central Visayas.
+            </p>
+            <div class="kv">
+              <dt>EMP</dt><dd>Employment: total employed persons per region-year (PSA Labor Force Survey)</dd>
+              <dt>INVOUT</dt><dd>Investment: real, deflated peso value of awarded DPWH contracts</dd>
+              <dt>PHYOUT</dt><dd>Physical output: completed projects per category, region, and year</dd>
+              <dt>RGDP</dt><dd>Regional gross domestic product (PSA Regional Accounts)</dd>
+              <dt>OUTSHARE</dt><dd>Instrument: share of awarded value funded through Outside Infra</dd>
+              <dt>Controls</dt><dd>Population (POP), disaster frequency (DISFRE), private consumption (PRIVCON), labor force participation rate (LFPR)</dd>
+            </div>
+          </div>
+        </section>
 
-      <section class="sheet fold" id="procedures">
-        <span class="tag">Section 04</span>
-        <h2>Research Procedures</h2>
-        <p>
-          The collected data will undergo three different static modes: <strong>pooled ordinary least squares (OLS)</strong>, <strong>fixed-effects</strong>, and <strong>random effects regression</strong>. The following definitions are extracted from Gujarati's Basic Econometrics (2025). The <strong>Pooled Ordinary Least Squares (OLS)</strong> is an approach where all observations are pooled together, neglecting the panel cross section and time-series nature of our data. Pooled OLS will not be suitable in the study since our scope includes a vast number of observations that vary across regions and time. <strong>Fixed-effects</strong>, or within group estimator, enables the observations of variables by assuming that the entities arise from the population itself. It estimates an <strong>OLS</strong> regression on such mean corrected or "de-meaned" values. <strong>Fixed-Effects (FE)</strong> runs by filtering out time invariant variables such as the difference in topography (mountainous regions) or an installation of a new major airport that separates or makes employment level differ from each other on average numerical value. <strong>FE</strong> focuses strictly on how changes in road density (R) lead to changes in employment (E) within regions. The last static model is the <strong>random effects (RE) model</strong> which estimates for both time varying factors and time-invariant variables. The <strong>RE model</strong> assumes that variation across entities are random and uncorrelated with the predictor or independent variable included in the model (Prinston, 2007). It assumes that intercept values are randomly drawn from a much bigger population.
-        </p>
-      </section>
-    </main>
+        <section class="room" id="model">
+          <div class="room-head"><span class="no">3.3</span><h2>Econometric Model</h2></div>
+          <div class="paper">
+            <p>
+              This section provides the model used to estimate the effect of DPWH infrastructure investment on regional employment in the Philippines. The study uses a Simultaneous Equations Model (SEM), estimated through Three Stage Least Squares (3SLS). "A model can be categorized as a system of simultaneous equations if all of the relationships involved are required for determining the values of at least one of the endogenous variables included in the model" (Gujarati, 2009).
+            </p>
+            <p>
+              SEM fits the study perfectly because investment does not affect employment in one step. Awarded funds have to become completed projects, completed projects have to contribute to regional output, and regional output has to translate into jobs. Each step is written as its own equation so that each link can be tested on its own.
+            </p>
+            <div class="chain" aria-hidden="true">
+              <span>INVOUT</span><b>&rarr;</b><span>PHYOUT</span><b>&rarr;</b><span>RGDP</span><b>&rarr;</b><span>EMP</span>
+            </div>
+            <p>
+              The model has three endogenous variables. These are variables explained by an equation inside the model (Mankiw, 2009): physical output (PHYOUT), regional gross domestic product (RGDP), and employment (EMP). The other variables are treated as exogenous, meaning their values are taken as given from outside the model (Mankiw, 2009): investment (INVOUT), the funding-source instrument (OUTSHARE), population (POP), disaster frequency (DISFRE), private consumption (PRIVCON), and the labor force participation rate (LFPR).
+            </p>
+            <p>
+              All variables are in natural logarithms except LFPR, which is already a rate. Coefficients &beta;<sub>1</sub> to &beta;<sub>3</sub>, &gamma;<sub>1</sub>, &gamma;<sub>2</sub>, and &lambda;<sub>2</sub> are expected to be positive, and &beta;<sub>4</sub> is expected to be negative because disasters delay completion.
+            </p>
+            <p>
+              The theoretical framework supporting the study, the Keynesian principle of effective demand, is expected to receive a positive sign for &lambda;<sub>1</sub> but Jiang et al. (2017) found that GDP had a negative effect in the eastern region of China, where the biggest economic cities are located. The sign of &lambda;<sub>1</sub> is therefore treated as an empirical question.
+            </p>
+            <p>
+              Investment cannot be assumed to be randomly assigned. The region that has greater capacity will get more investment and finish its projects faster. As a result, the coefficient of the physical output on investment will be affected by both investment and capacity. This is the endogeneity problem. In order to solve this problem, the study uses the share of a region's awarded value that comes from Outside Infra funding as an instrument. Instrument is a variable that affects the investment but does not directly affect the dependent variable. The Outside Infra includes programs such as DepEd Basic Educational Facilities Fund, DOH Health Facilities Enhancement Program, and Unprogrammed Appropriations while Regular Infra funding is under the General Appropriations Act.
+            </p>
+            <p>
+              Investment is assigned to the year of the contract award, and physical output to the year of completion. The panel has 16 regions and 9 years (2016 to 2024), or 144 observations. However, the previous year needs to be included. Therefore, 2016 cannot be used, and the estimation sample is 128 observations (2017 to 2024).
+            </p>
+          </div>
+        </section>
+
+        <section class="room" id="testing">
+          <div class="room-head"><span class="no">3.4</span><h2>Hypothesis Testing</h2></div>
+          <div class="paper">
+            <p>The hypotheses will be tested as follows:</p>
+            <div class="qrow"><span class="qnum">1</span><p>For H1, the effect of investment on employment runs through all three links, so its size is the product of the link coefficients, (&beta;<sub>1</sub> + &beta;<sub>2</sub>) &times; &gamma;<sub>1</sub> &times; &lambda;<sub>2</sub>.</p></div>
+            <div class="qrow"><span class="qnum">2</span><p>For H2, the chain will be estimated separately for each of the five categories, with investment and physical output measured for that category, and the results will be compared. If the instrument is too weak in a category, the results for that category will be reported as secondary.</p></div>
+            <div class="qrow"><span class="qnum">3</span><p>For H3, the regions will be grouped into Luzon (8), Visayas (3), and Mindanao (5).</p></div>
+            <div class="qrow"><span class="qnum">4</span><p>For H4, a Wald test will be used for the null hypothesis that &beta;<sub>1</sub> equals &beta;<sub>2</sub>.</p></div>
+          </div>
+        </section>
+
+        <section class="room" id="diagnostics">
+          <div class="room-head"><span class="no">3.5</span><h2>Diagnostic Testing</h2></div>
+          <div class="paper">
+            <p>
+              Since the study will be using the three-stage least squares (3SLS) that utilizes an instrumental variable to analyze and fix endogeneity problems, the paper has to undergo several diagnostic tests. The first one is the First-stage F-statistic, where we test whether the instrument is weak. Following Stock and Yogo (2005), an F statistic exceeding the conventional threshold of 10 indicates that the instruments are sufficiently strong to avoid weak-instrument bias. This is followed by Durbin-Wu-Hausman, Breusch-Pagan LM, VIF, Wooldridge test, and modified Wald test.
+            </p>
+            <div class="chips"><span>First-stage F-statistic</span><span>Durbin-Wu-Hausman</span><span>Breusch-Pagan LM</span><span>VIF</span><span>Wooldridge test</span><span>Modified Wald test</span></div>
+            <h3>Robustness checks</h3>
+            <p>
+              Moreover, for a robustness check of the equation, we can do the following: (1) Compare Ordinary least squares (OLS) vs Instrumental Variable (IV), to show how much the instrument matters. (2) Transpose equation by equation, 2SLS vs 3SLS. (3) Exclude NCR. (4) Try an alternative deflator for the dataset.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
 
     <nav class="pn">
-      <a href="chapter2.html" data-prev>← Previous Chapter</a>
-      <a href="thesis1.html" data-next>Back to Overview →</a>
+      <a href="chapter2.html" data-prev>← Chapter 2: Literature</a>
+      <a href="thesis1.html" data-next>Thesis overview →</a>
     </nav>
 
     <footer class="foot">
-      <p>Chapter 3 of 3 · <span class="verm">end of the proposal so far</span></p>
+      <p>Chapter 3 of 3 &middot; <span class="verm">this is where the paper currently ends</span></p>
     </footer>
   </div>
 
